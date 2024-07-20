@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.weather.databinding.LocationDetailFragmentBinding
 import com.example.weather.extensions.liveDataObserve
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +18,8 @@ class LocationDetailFragment : Fragment() {
 
     private val locationDetailViewModel by viewModels<LocationDetailViewModel>()
 
+    private val args: LocationDetailFragmentArgs by navArgs()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = LocationDetailFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -25,7 +28,7 @@ class LocationDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
-        locationDetailViewModel.getLocationDetail("Text")
+        locationDetailViewModel.getLocationDetail(args.name)
     }
 
     private fun initObservers() {

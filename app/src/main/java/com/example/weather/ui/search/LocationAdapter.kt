@@ -7,7 +7,7 @@ import com.example.weather.extensions.getLayoutInflater
 
 class LocationAdapter : RecyclerAdapter<LocationUi, LocationViewHolder>() {
 
-    var onLocationListener: ((id: Long) -> Unit)? = null
+    var onLocationListener: ((name: String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             LocationViewHolder(

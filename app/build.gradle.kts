@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.safe.args)
     libs.plugins.kotlinSerialization.get().pluginId
     kotlin("kapt")
 }

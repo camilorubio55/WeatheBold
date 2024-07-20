@@ -6,13 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weather.domain.GetLocationUseCase
 import com.example.weather.domain.model.Location
+import com.example.weather.extensions.Event
+import com.example.weather.extensions.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.example.weather.extensions.Result
 
 
 @HiltViewModel
@@ -24,6 +25,11 @@ class SearchViewModel @Inject constructor(
 
     val locationUiModelState: LiveData<LocationUiModelState>
         get() = _locationUiModelState
+
+    private val _navigateToLocationDetail = MutableLiveData<Event<String>>()
+
+    val navigateToLocationDetail: LiveData<Event<String>>
+        get() = _navigateToLocationDetail
 
     fun getLocations(text: String) {
         viewModelScope.launch(IO) {
@@ -50,5 +56,9 @@ class SearchViewModel @Inject constructor(
                                          exception: Exception? = null) {
         val locationUiModelState = LocationUiModelState(showProgress, isRefresh, locations, exception)
         _locationUiModelState.value = locationUiModelState
+    }
+
+    fun navigateToLocationDetail(name: String) {
+        _navigateToLocationDetail.value = Event(name)
     }
 }
