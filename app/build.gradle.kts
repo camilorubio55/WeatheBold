@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hilt.android)
+    libs.plugins.kotlinSerialization.get().pluginId
     kotlin("kapt")
 }
 
@@ -45,6 +46,12 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.hilt.android)
+    implementation(libs.squareup.retrofit)
+    implementation(libs.gson)
+    implementation(libs.gsonConverter)
+    implementation(libs.kotlinx.serialization)
+    implementation(libs.squareup.okhttp)
+    implementation(libs.squareup.okhttp.interceptor)
     kapt(libs.hilt.compiler)
 
     testImplementation(libs.junit)
