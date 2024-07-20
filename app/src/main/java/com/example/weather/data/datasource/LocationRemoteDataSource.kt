@@ -1,8 +1,8 @@
 package com.example.weather.data.datasource
 
-import android.util.Log
 import com.example.weather.data.LocationApi
 import com.example.weather.data.WEATHER_KEY
+import com.example.weather.data.model.toLocations
 import javax.inject.Inject
 import com.example.weather.extensions.Result
 
@@ -10,10 +10,8 @@ class LocationRemoteDataSource @Inject constructor(private val locationApi: Loca
 
     suspend fun getLocations(text: String) = try {
         val result = locationApi.getLocations(key = WEATHER_KEY, text = text)
-        Log.d("---Test Endpoint", result.first().name.toString())
-        Result.Success(true)
+        Result.Success(result.toLocations())
     } catch (e: Exception) {
-        Log.d("---Test Endpoint", "Bad Response")
         Result.Error(Exception())
     }
 }

@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.kotlinx.serialization)
     implementation(libs.squareup.okhttp)
     implementation(libs.squareup.okhttp.interceptor)
+    implementation(libs.androidx.recyclerview.layout)
     kapt(libs.hilt.compiler)
 
     testImplementation(libs.junit)

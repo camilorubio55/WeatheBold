@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="xs_padding">4dp</dimen>
+    <dimen name="sm_padding">8dp</dimen>
+    <dimen name="md_padding">16dp</dimen>
+
+    <dimen name="xs_margin">4dp</dimen>
+    <dimen name="sm_margin">8dp</dimen>
+    <dimen name="md_margin">16dp</dimen>
+    <dimen name="xl_margin">32dp</dimen>
+
+    <dimen name="sm_corner_radius">8dp</dimen>
+
+    <dimen name="sm_text_size">12sp</dimen>
+    <dimen name="md_text_size">16sp</dimen>
+    <dimen name="xl_text_size">32sp</dimen>
+</resources>

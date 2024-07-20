@@ -5,17 +5,50 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.weather.databinding.SearchFragmentBinding
+import com.example.weather.extensions.liveDataObserve
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
 
     private lateinit var binding: SearchFragmentBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    private val searchViewModel by viewModels<SearchViewModel>()
+
+    private val locationsAdapter by lazy { LocationAdapter() }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = SearchFragmentBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initObservers()
+        initRecyclerView()
+        initAdapter()
+        searchViewModel.getLocations("Text")
+    }
+
+    private fun initObservers() {
+        liveDataObserve(searchViewModel.locationUiModelState) { locationUi(it ?: return@liveDataObserve) }
+    }
+
+    private fun locationUi(locationUiModelState: LocationUiModelState) = locationUiModelState.run {
+        if (locations.isNotEmpty()) locationSuccess(locations)
+    }
+
+    private fun locationSuccess(locations: List<LocationUi>) {
+        locationsAdapter.set(locations)
+    }
+
+    private fun initRecyclerView() = binding.locationRecycler.run {
+        adapter = locationsAdapter
+    }
+
+    private fun initAdapter() {
+        locationsAdapter.onLocationListener = {}
     }
 }
