@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/searchFragment">
+    app:startDestination="@id/locationDetailFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -16,4 +16,10 @@
         android:name="com.example.weather.ui.search.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/search_fragment"/>
+
+    <fragment
+        android:id="@+id/locationDetailFragment"
+        android:name="com.example.weather.ui.locationDetail.LocationDetailFragment"
+        android:label="LocationDetailFragment"
+        tools:layout="@layout/location_detail_fragment"/>
 </navigation>

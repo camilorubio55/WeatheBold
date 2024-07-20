@@ -7,4 +7,6 @@ class LocationRepository @Inject constructor(private val locationRemoteDataSourc
 
     suspend fun getLocations(text: String) = locationRemoteDataSource.getLocations(text)
 
+    suspend fun getLocationDetail(name: String) = locationRemoteDataSource.getLocationDetail(name)
+
 }
