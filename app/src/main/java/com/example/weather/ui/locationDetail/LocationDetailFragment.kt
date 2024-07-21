@@ -24,6 +24,8 @@ class LocationDetailFragment : Fragment() {
 
     private val locationDetailViewModel by viewModels<LocationDetailViewModel>()
 
+    private val weatherAdapter by lazy { WeatherAdapter() }
+
     private val args: LocationDetailFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -34,7 +36,12 @@ class LocationDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObservers()
+        initRecyclerView()
         locationDetailViewModel.getLocationDetail(args.name)
+    }
+
+    private fun initRecyclerView() = binding.forecasterRecycler.run {
+        adapter = weatherAdapter
     }
 
     private fun initObservers() {
@@ -56,6 +63,7 @@ class LocationDetailFragment : Fragment() {
                 .load(currentDetail.condition.conditionIcon)
                 .circleCrop()
                 .into(binding.imageViewWeather)
+        weatherAdapter.set(forecastDays)
     }
 
     private fun locationDetailError(exception: Exception) {

@@ -6,7 +6,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/sm_padding">
 
         <ProgressBar
             android:id="@+id/detail_progress"
@@ -25,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/xs_margin"
             android:text="@string/location"
-            android:textSize="@dimen/sm_text_size"
+            android:textSize="@dimen/md_text_size"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/xs_margin"
-            android:textSize="@dimen/sm_text_size"
+            android:textSize="@dimen/xl_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_locationTitle" />
@@ -47,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/xs_margin"
             android:text="@string/weather_current_day"
-            android:textSize="@dimen/sm_text_size"
+            android:textSize="@dimen/md_text_size"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/xs_margin"
             android:text="@string/forecaster"
-            android:textSize="@dimen/sm_text_size"
+            android:textSize="@dimen/md_text_size"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

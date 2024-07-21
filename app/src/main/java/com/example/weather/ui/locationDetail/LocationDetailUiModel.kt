@@ -37,7 +37,7 @@ fun LocationDetail.toLocationDetailUi() = LocationDetailUi(
 
 private fun CurrentDetail.toCurrentDetailUi() = CurrentDetailUi(
         lastUpdated = lastUpdated,
-        temperature = temperature,
+        temperature = "$temperature °C",
         condition = condition.toConditionDetailUi())
 
 private fun ConditionDetail.toConditionDetailUi() = ConditionDetailUi(
@@ -48,5 +48,5 @@ private fun List<ForecastDetail>.toForecastDetailUiList() = map { it.toForecastD
 
 private fun ForecastDetail.toForecastDetailUi() = ForecastDetailUi(
         date = date,
-        averageTemperature = averageTemperature,
+        averageTemperature = "$averageTemperature °C",
         condition = condition.toConditionDetailUi())
