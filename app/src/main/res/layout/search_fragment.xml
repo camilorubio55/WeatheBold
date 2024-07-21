@@ -27,5 +27,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_progress" />
 
+        <com.example.weather.ui.MessageView
+            android:id="@+id/message_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:image="@drawable/ic_normal_search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/start_search" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

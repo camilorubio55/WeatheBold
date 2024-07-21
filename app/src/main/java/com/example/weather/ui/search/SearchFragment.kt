@@ -14,14 +14,15 @@ import androidx.navigation.fragment.findNavController
 import com.example.weather.R
 import com.example.weather.databinding.SearchFragmentBinding
 import com.example.weather.exceptions.ApiRequestException
+import com.example.weather.exceptions.ApiRequestException.ConnectionNetwork
 import com.example.weather.extensions.getSearchView
+import com.example.weather.extensions.hide
 import com.example.weather.extensions.hideOrShow
 import com.example.weather.extensions.ifNotEmpty
 import com.example.weather.extensions.liveDataObserve
 import com.example.weather.extensions.liveEventObserve
 import com.example.weather.extensions.onQueryTextListener
-import com.example.weather.extensions.showError
-import com.example.weather.extensions.snackbar
+import com.example.weather.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -86,14 +87,28 @@ class SearchFragment : Fragment() {
         if (exception != null) locationError(exception)
     }
 
-    private fun locationSuccess(locations: List<LocationUi>) = locationsAdapter.set(locations)
+    private fun locationSuccess(locations: List<LocationUi>) {
+        locationsAdapter.set(locations)
+        if (locations.isEmpty()) showNoResults() else showReceipts()
+    }
 
-    private fun locationError(exception: Exception) = showErrorSnackBar(exception)
+    private fun showNoResults() {
+        binding.locationRecycler.hide()
+        binding.messageView.showNotFoundError()
+    }
 
-    private fun showErrorSnackBar(exception: Exception) = exception.run {
+    private fun showReceipts() {
+        binding.locationRecycler.visible()
+        binding.messageView.hide()
+    }
+
+    private fun locationError(exception: Exception) =exception.run {
+        binding.locationRecycler.hide()
+        binding.messageView.visible()
         when (this) {
-            is ApiRequestException -> snackbar(messageError).showError()
-            else -> snackbar(R.string.error_unknown).showError()
+            is ConnectionNetwork -> binding.messageView.showConnectionError()
+            is ApiRequestException -> binding.messageView.showGenericError()
+            else -> binding.messageView.showGenericError()
         }
     }
 }

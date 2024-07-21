@@ -1,12 +1,21 @@
 <resources>
-    <string name="app_name">Weather</string>
+    <string name="app_name">WeatherApp</string>
     <string name="location">Location</string>
+    <string name="information">Information</string>
     <string name="weather_current_day">Current weather</string>
     <string name="forecaster">Forecast of the next few days</string>
-    <string name="error_authentication">Error de autorización. Inicia sesión nuevamente.</string>
-    <string name="error_access_denied">Accesso denegado. Inténtalo más tarde.</string>
-    <string name="error_unavailable_server">El servicio no esta disponible. Inténtalo más tarde.</string>
-    <string name="error_connection_network">Parece que no tienes conexión a internet.</string>
-    <string name="error_unknown">Lo sentimos, ha ocurrido un error, intenta entrar más tarde.</string>
-    <string name="error_not_found">Lo sentimos, este recurso no está disponible.</string>
+    <string name="error_authentication">Authorization error. Sign in again.</string>
+    <string name="error_access_denied">Access denied. Try again later.</string>
+    <string name="error_connection_network">It seems that you do not have an internet connection</string>
+    <string name="error_unknown">Sorry, an error occurred, please try to log in later</string>
+    <string name="error_not_found">Sorry, this resource is not available</string>
+    <string name="error_device_not_connected">Your device\nhas no connection</string>
+    <string name="error_verify_signal">Check your signal</string>
+    <string name="error_we_have_an_issue">We have a problem</string>
+    <string name="error_checking_issue">"But don't worry,\nwe're already reviewing it</string>
+    <string name="error_search_not_found">No results found</string>
+    <string name="error_try_other_search">Try another search</string>
+    <string name="error_unavailable_server">Server error</string>
+    <string name="start_search">Click on the button to\nstart the search</string>
+    <string name="app_description">In this app you will find the best weather forecasts</string>
 </resources>

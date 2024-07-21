@@ -8,13 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.example.weather.R
 import com.example.weather.databinding.LocationDetailFragmentBinding
 import com.example.weather.exceptions.ApiRequestException
+import com.example.weather.exceptions.ApiRequestException.ConnectionNetwork
 import com.example.weather.extensions.hideOrShow
 import com.example.weather.extensions.liveDataObserve
-import com.example.weather.extensions.showError
-import com.example.weather.extensions.snackbar
+import com.example.weather.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -55,7 +54,7 @@ class LocationDetailFragment : Fragment() {
     }
 
     private fun locationDetailSuccess(locationDetailUi: LocationDetailUi) = locationDetailUi.run {
-        binding.container.hideOrShow(visible = true)
+        binding.group.hideOrShow(visible = true)
         binding.textViewLocationName.text = name
         binding.textViewCondition.text = currentDetail.condition.conditionText
         binding.textViewTemperature.text = currentDetail.temperature
@@ -66,15 +65,13 @@ class LocationDetailFragment : Fragment() {
         weatherAdapter.set(forecastDays)
     }
 
-    private fun locationDetailError(exception: Exception) {
-        binding.container.hideOrShow(visible = false)
-        showErrorSnackBar(exception)
-    }
-
-    private fun showErrorSnackBar(exception: Exception) = exception.run {
+    private fun locationDetailError(exception: Exception) = exception.run {
+        binding.group.hideOrShow(visible = false)
+        binding.messageView.visible()
         when (this) {
-            is ApiRequestException -> snackbar(messageError).showError()
-            else -> snackbar(R.string.error_unknown).showError()
+            is ConnectionNetwork -> binding.messageView.showConnectionError()
+            is ApiRequestException -> binding.messageView.showGenericError()
+            else -> binding.messageView.showGenericError()
         }
     }
 }

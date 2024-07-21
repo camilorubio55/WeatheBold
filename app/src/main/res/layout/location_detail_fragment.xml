@@ -9,6 +9,13 @@
         android:layout_height="match_parent"
         android:padding="@dimen/sm_padding">
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:constraint_referenced_ids="textView_locationTitle, textView_locationName, textView_currentDay, cardView, textView_forecaster, forecaster_recycler"/>
+
         <ProgressBar
             android:id="@+id/detail_progress"
             style="?android:attr/progressBarStyleHorizontal"
@@ -123,6 +130,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_forecaster" />
+
+        <com.example.weather.ui.MessageView
+            android:id="@+id/message_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
