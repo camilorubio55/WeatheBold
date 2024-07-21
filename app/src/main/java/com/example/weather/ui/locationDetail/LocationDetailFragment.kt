@@ -7,8 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.example.weather.R
 import com.example.weather.databinding.LocationDetailFragmentBinding
+import com.example.weather.exceptions.ApiRequestException
+import com.example.weather.extensions.hideOrShow
 import com.example.weather.extensions.liveDataObserve
+import com.example.weather.extensions.showError
+import com.example.weather.extensions.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,11 +42,31 @@ class LocationDetailFragment : Fragment() {
     }
 
     private fun locationDetailUi(locationDetailUiModelState: LocationDetailUiModelState) = locationDetailUiModelState.run {
+        binding.detailProgress.hideOrShow(showProgress)
         if (locationDetail != null) locationDetailSuccess(locationDetail)
+        if (exception != null) locationDetailError(exception)
     }
 
-    private fun locationDetailSuccess(locationDetailUi: LocationDetailUi) {
-        binding.textViewName.text = locationDetailUi.name
-        binding.textViewCondition.text = locationDetailUi.forecastDays.toString()
+    private fun locationDetailSuccess(locationDetailUi: LocationDetailUi) = locationDetailUi.run {
+        binding.container.hideOrShow(visible = true)
+        binding.textViewLocationName.text = name
+        binding.textViewCondition.text = currentDetail.condition.conditionText
+        binding.textViewTemperature.text = currentDetail.temperature
+        Glide.with(requireContext())
+                .load(currentDetail.condition.conditionIcon)
+                .circleCrop()
+                .into(binding.imageViewWeather)
+    }
+
+    private fun locationDetailError(exception: Exception) {
+        binding.container.hideOrShow(visible = false)
+        showErrorSnackBar(exception)
+    }
+
+    private fun showErrorSnackBar(exception: Exception) = exception.run {
+        when (this) {
+            is ApiRequestException -> snackbar(messageError).showError()
+            else -> snackbar(R.string.error_unknown).showError()
+        }
     }
 }

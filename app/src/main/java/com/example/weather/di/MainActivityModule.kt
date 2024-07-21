@@ -1,5 +1,6 @@
 package com.example.weather.di
 
+import com.example.weather.core.CoroutinesDispatchers
 import com.example.weather.data.BASE_URL
 import com.example.weather.data.LocationApi
 import com.example.weather.exceptions.ApiExceptionHandler
@@ -21,8 +22,8 @@ object MainActivityModule {
     @Provides
     fun provideHttpClient(): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
-                .readTimeout(60, TimeUnit.SECONDS)
-                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .connectTimeout(20, TimeUnit.SECONDS)
 
         return httpClient.build()
     }
@@ -44,4 +45,8 @@ object MainActivityModule {
     fun provideApiExceptionHandler() : ApiExceptionHandler {
         return ApiExceptionHandler()
     }
+
+    @Provides
+    @Singleton
+    fun provideCoroutinesDispatchers() = CoroutinesDispatchers()
 }

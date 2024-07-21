@@ -4,19 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weather.core.CoroutinesDispatchers
 import com.example.weather.domain.GetLocationDetailUseCase
 import com.example.weather.domain.model.LocationDetail
 import com.example.weather.extensions.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @HiltViewModel
 class LocationDetailViewModel @Inject constructor(
-        private val getLocationDetailUseCase: GetLocationDetailUseCase
+        private val getLocationDetailUseCase: GetLocationDetailUseCase,
+        private val coroutinesDispatchers: CoroutinesDispatchers
 ) : ViewModel() {
 
     private val _locationDetailUiModelState = MutableLiveData<LocationDetailUiModelState>()
@@ -25,9 +25,10 @@ class LocationDetailViewModel @Inject constructor(
         get() = _locationDetailUiModelState
 
     fun getLocationDetail(name: String) {
-        viewModelScope.launch(IO) {
+        emitLocationDetailUiModelState(showProgress = true)
+        viewModelScope.launch(coroutinesDispatchers.io) {
             val result = getLocationDetailUseCase.getLocationDetail(name)
-            withContext(Main) {
+            withContext(coroutinesDispatchers.main) {
                 when (result) {
                     is Result.Success -> getLocationDetailSuccess(result.data)
                     is Result.Error -> getLocationDetailError(result.exception)
@@ -39,7 +40,6 @@ class LocationDetailViewModel @Inject constructor(
     private fun getLocationDetailSuccess(locationDetail: LocationDetail) {
         emitLocationDetailUiModelState(locationDetail = locationDetail.toLocationDetailUi())
     }
-
 
     private fun getLocationDetailError(exception: Exception) {
         exception.printStackTrace()

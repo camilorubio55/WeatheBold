@@ -4,21 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.weather.core.CoroutinesDispatchers
 import com.example.weather.domain.GetLocationUseCase
 import com.example.weather.domain.model.Location
 import com.example.weather.extensions.Event
 import com.example.weather.extensions.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-        private val getLocationUseCase: GetLocationUseCase
+        private val getLocationUseCase: GetLocationUseCase,
+        private val coroutinesDispatchers: CoroutinesDispatchers
 ) : ViewModel() {
 
     private val _locationUiModelState = MutableLiveData<LocationUiModelState>()
@@ -33,9 +32,9 @@ class SearchViewModel @Inject constructor(
 
     fun getLocations(text: String) {
         emitLocationUiModelState(showProgress = true)
-        viewModelScope.launch(IO) {
+        viewModelScope.launch(coroutinesDispatchers.io) {
             val result = getLocationUseCase.getLocations(text)
-            withContext(Main) {
+            withContext(coroutinesDispatchers.main) {
                 when (result) {
                     is Result.Success -> getLocationsSuccess(result.data)
                     is Result.Error -> getLocationsError(result.exception)

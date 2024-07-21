@@ -52,7 +52,7 @@ fun CurrentDetailApiResponse?.toCurrentDetail() = CurrentDetail(
 
 fun ConditionDetailApiResponse?.toConditionDetail() = ConditionDetail(
         conditionText = this?.text.orEmpty(),
-        conditionIcon = this?.icon.orEmpty())
+        conditionIcon = "https:${this?.icon}")
 
 fun ForecastDayDetailApiResponse?.toForecastDetail() = ForecastDetail(
         date = this?.date.orEmpty(),

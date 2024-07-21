@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Weather</string>
-    <string name="location">Ubicación</string>
+    <string name="location">Location</string>
+    <string name="weather_current_day">Current weather</string>
+    <string name="forecaster">Forecast of the next few days</string>
     <string name="error_authentication">Error de autorización. Inicia sesión nuevamente.</string>
     <string name="error_access_denied">Accesso denegado. Inténtalo más tarde.</string>
     <string name="error_unavailable_server">El servicio no esta disponible. Inténtalo más tarde.</string>

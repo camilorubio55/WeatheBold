@@ -17,6 +17,7 @@ okhttp = "4.12.0"
 gson = "2.10.1"
 gsonConverter = "2.11.0"
 androidxRecyclerView = "1.3.2"
+glide = "4.16.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,6 +32,8 @@ kotlinx-serialization = {group = "org.jetbrains.kotlinx", name = "kotlinx-serial
 squareup-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 squareup-okhttp-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 androidx-recyclerview-layout = { module = "androidx.recyclerview:recyclerview", version.ref = "androidxRecyclerView" }
+bumptech-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+bumptech-glide-ksp = { group = "com.github.bumptech.glide", name = "ksp", version.ref = "glide" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

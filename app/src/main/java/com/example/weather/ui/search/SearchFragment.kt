@@ -60,6 +60,16 @@ class SearchFragment : Fragment() {
         }, viewLifecycleOwner)
     }
 
+    private fun initRecyclerView() = binding.locationRecycler.run {
+        adapter = locationsAdapter
+    }
+
+    private fun initAdapter() {
+        locationsAdapter.onLocationListener = {
+            searchViewModel.navigateToLocationDetail(it)
+        }
+    }
+
     private fun initObservers() {
         liveDataObserve(searchViewModel.locationUiModelState) { locationUi(it ?: return@liveDataObserve) }
         liveEventObserve(searchViewModel.navigateToLocationDetail) { navigateToLocationDetail(it) }
@@ -84,16 +94,6 @@ class SearchFragment : Fragment() {
         when (this) {
             is ApiRequestException -> snackbar(messageError).showError()
             else -> snackbar(R.string.error_unknown).showError()
-        }
-    }
-
-    private fun initRecyclerView() = binding.locationRecycler.run {
-        adapter = locationsAdapter
-    }
-
-    private fun initAdapter() {
-        locationsAdapter.onLocationListener = {
-            searchViewModel.navigateToLocationDetail(it)
         }
     }
 }

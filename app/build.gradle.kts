@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.squareup.okhttp)
     implementation(libs.squareup.okhttp.interceptor)
     implementation(libs.androidx.recyclerview.layout)
+    implementation(libs.bumptech.glide)
+    kapt(libs.bumptech.glide.ksp)
     kapt(libs.hilt.compiler)
 
     testImplementation(libs.junit)
