@@ -2,6 +2,7 @@ package com.example.weather.di
 
 import com.example.weather.data.BASE_URL
 import com.example.weather.data.LocationApi
+import com.example.weather.exceptions.ApiExceptionHandler
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,4 +39,9 @@ object MainActivityModule {
         return retrofit.create(LocationApi::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideApiExceptionHandler() : ApiExceptionHandler {
+        return ApiExceptionHandler()
+    }
 }

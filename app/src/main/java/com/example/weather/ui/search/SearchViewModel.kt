@@ -32,6 +32,7 @@ class SearchViewModel @Inject constructor(
         get() = _navigateToLocationDetail
 
     fun getLocations(text: String) {
+        emitLocationUiModelState(showProgress = true)
         viewModelScope.launch(IO) {
             val result = getLocationUseCase.getLocations(text)
             withContext(Main) {

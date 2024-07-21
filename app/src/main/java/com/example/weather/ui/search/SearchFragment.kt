@@ -13,10 +13,15 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.weather.R
 import com.example.weather.databinding.SearchFragmentBinding
+import com.example.weather.exceptions.ApiRequestException
 import com.example.weather.extensions.getSearchView
+import com.example.weather.extensions.hideOrShow
+import com.example.weather.extensions.ifNotEmpty
 import com.example.weather.extensions.liveDataObserve
 import com.example.weather.extensions.liveEventObserve
 import com.example.weather.extensions.onQueryTextListener
+import com.example.weather.extensions.showError
+import com.example.weather.extensions.snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,7 +51,7 @@ class SearchFragment : Fragment() {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.search_menu, menu)
                 val searchView = menu.getSearchView(R.id.search_item)
-                searchView?.onQueryTextListener(onQueryTextChange = { query -> searchViewModel.getLocations(query) })
+                searchView?.onQueryTextListener(onQueryTextChange = { query -> query.ifNotEmpty { searchViewModel.getLocations(query) } })
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -66,11 +71,20 @@ class SearchFragment : Fragment() {
     }
 
     private fun locationUi(locationUiModelState: LocationUiModelState) = locationUiModelState.run {
-        if (locations.isNotEmpty()) locationSuccess(locations)
+        binding.searchProgress.hideOrShow(showProgress)
+        locationSuccess(locations)
+        if (exception != null) locationError(exception)
     }
 
-    private fun locationSuccess(locations: List<LocationUi>) {
-        locationsAdapter.set(locations)
+    private fun locationSuccess(locations: List<LocationUi>) = locationsAdapter.set(locations)
+
+    private fun locationError(exception: Exception) = showErrorSnackBar(exception)
+
+    private fun showErrorSnackBar(exception: Exception) = exception.run {
+        when (this) {
+            is ApiRequestException -> snackbar(messageError).showError()
+            else -> snackbar(R.string.error_unknown).showError()
+        }
     }
 
     private fun initRecyclerView() = binding.locationRecycler.run {
