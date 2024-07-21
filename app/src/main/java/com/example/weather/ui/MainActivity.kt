@@ -8,6 +8,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.weather.R
 import com.example.weather.databinding.ActivityMainBinding
+import com.example.weather.extensions.hide
+import com.example.weather.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,6 +28,17 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment)
 
         NavigationUI.setupActionBarWithNavController(this, navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when(destination.id) {
+                R.id.splashFragment -> binding.appBarLayout.hide()
+                R.id.searchFragment -> {
+                    binding.appBarLayout.visible()
+                    supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                }
+                else -> binding.appBarLayout.visible()
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
