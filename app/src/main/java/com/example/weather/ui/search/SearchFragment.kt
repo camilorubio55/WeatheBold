@@ -2,14 +2,21 @@ package com.example.weather.ui.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.weather.R
 import com.example.weather.databinding.SearchFragmentBinding
+import com.example.weather.extensions.getSearchView
 import com.example.weather.extensions.liveDataObserve
 import com.example.weather.extensions.liveEventObserve
+import com.example.weather.extensions.onQueryTextListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +29,7 @@ class SearchFragment : Fragment() {
     private val locationsAdapter by lazy { LocationAdapter() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        initMenuProvider()
         binding = SearchFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -31,7 +39,20 @@ class SearchFragment : Fragment() {
         initObservers()
         initRecyclerView()
         initAdapter()
-        searchViewModel.getLocations("Text")
+    }
+
+    private fun initMenuProvider() {
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.search_menu, menu)
+                val searchView = menu.getSearchView(R.id.search_item)
+                searchView?.onQueryTextListener(onQueryTextChange = { query -> searchViewModel.getLocations(query) })
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return false
+            }
+        }, viewLifecycleOwner)
     }
 
     private fun initObservers() {

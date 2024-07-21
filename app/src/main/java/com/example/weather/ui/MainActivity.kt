@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        setSupportActionBar(binding.toolbar)
+
         navController = findNavController(R.id.nav_host_fragment)
 
         NavigationUI.setupActionBarWithNavController(this, navController)
