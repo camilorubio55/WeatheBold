@@ -89,7 +89,7 @@ class SearchFragment : Fragment() {
 
     private fun locationSuccess(locations: List<LocationUi>) {
         locationsAdapter.set(locations)
-        if (locations.isEmpty()) showNoResults() else showReceipts()
+        if (locations.isEmpty()) showNoResults() else showResults()
     }
 
     private fun showNoResults() {
@@ -97,7 +97,7 @@ class SearchFragment : Fragment() {
         binding.messageView.showNotFoundError()
     }
 
-    private fun showReceipts() {
+    private fun showResults() {
         binding.locationRecycler.visible()
         binding.messageView.hide()
     }

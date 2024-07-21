@@ -25,7 +25,7 @@ class ApiExceptionHandler {
         return when {
             code == AUTHENTICATION_CODE -> Authentication()
             code == ACCESS_DENIED_CODE -> AccessDenied()
-            code == RECEIPT_ERROR_NOT_FOUND_CODE -> NotFound()
+            code == ERROR_NOT_FOUND_CODE -> NotFound()
             code >= UNAVAILABLE_SERVER_CODE -> UnavailableServer()
             message.isNotEmpty() -> ApiError(message)
             else -> Unknown()
@@ -35,7 +35,7 @@ class ApiExceptionHandler {
     companion object {
         const val AUTHENTICATION_CODE = 401
         const val ACCESS_DENIED_CODE = 403
-        const val RECEIPT_ERROR_NOT_FOUND_CODE = 404
+        const val ERROR_NOT_FOUND_CODE = 404
         const val UNAVAILABLE_SERVER_CODE = 500
     }
 }
