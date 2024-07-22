@@ -1,5 +1,6 @@
 package com.example.weather.domain
 
+import com.example.weather.assertThatEquals
 import com.example.weather.assertThatIsInstanceOf
 import com.example.weather.data.repository.LocationRepository
 import com.example.weather.exceptions.ApiRequestException.ConnectionNetwork
@@ -9,8 +10,6 @@ import com.example.weather.extensions.error
 import com.example.weather.extensions.success
 import com.example.weather.fakedata.givenLocationDetail
 import kotlinx.coroutines.runBlocking
-import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -36,7 +35,7 @@ class GetLocationDetailUseCaseShould {
         val result = getLocationDetailUseCase.getLocationDetail(String.empty()).success()
 
         verify(locationRepository).getLocationDetail(String.empty())
-        assertThat(result, equalTo(locationDetail))
+        assertThatEquals(result, locationDetail)
     }
 
     @Test
