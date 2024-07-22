@@ -5,9 +5,9 @@ import com.example.weather.assertThatIsInstanceOf
 import com.example.weather.data.repository.LocationRepository
 import com.example.weather.exceptions.ApiRequestException.ConnectionNetwork
 import com.example.weather.extensions.Result
-import com.example.weather.extensions.empty
 import com.example.weather.extensions.error
 import com.example.weather.extensions.success
+import com.example.weather.fakedata.ANY_NAME
 import com.example.weather.fakedata.givenLocations
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -30,21 +30,21 @@ class GetLocationUseCaseShould {
     @Test
     fun `Get location list when getLocations is called`() = runBlocking {
         val locations = givenLocations()
-        whenever(locationRepository.getLocations(String.empty())).thenReturn(Result.Success(locations))
+        whenever(locationRepository.getLocations(ANY_NAME)).thenReturn(Result.Success(locations))
 
-        val result = getLocationUseCase.getLocations(String.empty()).success()
+        val result = getLocationUseCase.getLocations(ANY_NAME).success()
 
-        verify(locationRepository).getLocations(String.empty())
+        verify(locationRepository).getLocations(ANY_NAME)
         assertThatEquals(result, locations)
     }
 
     @Test
     fun `Get Exception when getLocations response is failure`() = runBlocking {
-        whenever(locationRepository.getLocations(String.empty())).thenReturn(Result.Error(ConnectionNetwork()))
+        whenever(locationRepository.getLocations(ANY_NAME)).thenReturn(Result.Error(ConnectionNetwork()))
 
-        val result = getLocationUseCase.getLocations(String.empty()).error()
+        val result = getLocationUseCase.getLocations(ANY_NAME).error()
 
-        verify(locationRepository).getLocations(String.empty())
+        verify(locationRepository).getLocations(ANY_NAME)
         assertThatIsInstanceOf<ConnectionNetwork>(result)
     }
 }

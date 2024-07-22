@@ -56,6 +56,8 @@ dependencies {
     implementation(libs.androidx.recyclerview.layout)
     implementation(libs.bumptech.glide)
     testImplementation(libs.mockitoKotlin)
+    testImplementation(libs.mockwebserver)
+    testImplementation(libs.kotlinxCoroutinesTest)
     kapt(libs.bumptech.glide.ksp)
     kapt(libs.hilt.compiler)
 

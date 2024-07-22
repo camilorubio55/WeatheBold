@@ -5,9 +5,9 @@ import com.example.weather.assertThatIsInstanceOf
 import com.example.weather.data.repository.LocationRepository
 import com.example.weather.exceptions.ApiRequestException.ConnectionNetwork
 import com.example.weather.extensions.Result
-import com.example.weather.extensions.empty
 import com.example.weather.extensions.error
 import com.example.weather.extensions.success
+import com.example.weather.fakedata.ANY_NAME
 import com.example.weather.fakedata.givenLocationDetail
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -30,21 +30,21 @@ class GetLocationDetailUseCaseShould {
     @Test
     fun `Get location detail when getLocationDetail is called`() = runBlocking {
         val locationDetail = givenLocationDetail()
-        whenever(locationRepository.getLocationDetail(String.empty())).thenReturn(Result.Success(locationDetail))
+        whenever(locationRepository.getLocationDetail(ANY_NAME)).thenReturn(Result.Success(locationDetail))
 
-        val result = getLocationDetailUseCase.getLocationDetail(String.empty()).success()
+        val result = getLocationDetailUseCase.getLocationDetail(ANY_NAME).success()
 
-        verify(locationRepository).getLocationDetail(String.empty())
+        verify(locationRepository).getLocationDetail(ANY_NAME)
         assertThatEquals(result, locationDetail)
     }
 
     @Test
     fun `Get Exception when getLocationDetail response is failure`() = runBlocking {
-        whenever(locationRepository.getLocationDetail(String.empty())).thenReturn(Result.Error(ConnectionNetwork()))
+        whenever(locationRepository.getLocationDetail(ANY_NAME)).thenReturn(Result.Error(ConnectionNetwork()))
 
-        val result = getLocationDetailUseCase.getLocationDetail(String.empty()).error()
+        val result = getLocationDetailUseCase.getLocationDetail(ANY_NAME).error()
 
-        verify(locationRepository).getLocationDetail(String.empty())
+        verify(locationRepository).getLocationDetail(ANY_NAME)
         assertThatIsInstanceOf<ConnectionNetwork>(result)
     }
 }
