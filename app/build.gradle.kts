@@ -58,6 +58,7 @@ dependencies {
     testImplementation(libs.mockitoKotlin)
     testImplementation(libs.mockwebserver)
     testImplementation(libs.kotlinxCoroutinesTest)
+    api(libs.androidx.arch.core.testing)
     kapt(libs.bumptech.glide.ksp)
     kapt(libs.hilt.compiler)
 
